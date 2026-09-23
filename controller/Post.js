@@ -1,29 +1,37 @@
 const Posts = require("../model/posts")
 
-const Post = async(req,res)=>{
+const Post = async (req, res) => {
 
-    try{
-        const {caption,postId}=req.body
+    try {
+
+        console.log("BODY:", req.body)
+        console.log("FILE:", req.file)
+
+        const { caption, postId } = req.body
 
         const newPost = await Posts.create({
-            image:req.file.path,
-            caption:caption,
-            postId:postId
-        })
-        res.status(201).json({
-            message:"Post upload successfully"
+            image: req.file.path,
+            caption: caption,
+            postId: postId
         })
 
+        console.log("SAVED POST:", newPost)
 
+        return res.status(201).json({
+            success: true,
+            message: "Post upload successfully",
+            post: newPost
+        })
+
+    } catch (err) {
+
+        console.log("POST ERROR:", err)
+
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        })
     }
-    catch(err){
-        res.status(500).json({
-            message:err.message
-        })
-        
-
-    }
-
 }
 
 const fetchPost = async(req,res)=>{
