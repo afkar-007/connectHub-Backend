@@ -2,41 +2,50 @@ const express = require("express")
 const cors = require("cors")
 
 const UserRoutes = require("./Routes/userRoutes")
-const PostRouter = require('./Routes/PostRoutes')
-
+const PostRouter = require("./Routes/PostRoutes")
 
 const app = express()
+
 const ConnectDb = require("./config/Db")
 
 
-app.use(cors(
-    {
-        origin:[
-            "http://localhost:5173"
-        ]
-    }
+// ================= CORS =================
+
+app.use(cors({
+    origin: "http://localhost:5173"
+}))
 
 
-))
+// ================= JSON =================
+
 app.use(express.json())
+
+
+// ================= DATABASE =================
 
 ConnectDb()
 
-app.get('/',(req,res)=>{
-    res.send("Connect hub backend is running")
 
+// ================= HOME =================
+
+app.get("/", (req, res) => {
+    res.send("Connect hub backend is running")
 })
 
-app.use('/users',UserRoutes)
-app.use('/post',PostRouter)
-app.use('/uploads',express.static("uploads"))
+
+// ================= ROUTES =================
+
+app.use("/users", UserRoutes)
+
+app.use("/post", PostRouter)
+
+app.use("/uploads", express.static("uploads"))
 
 
+// ================= SERVER =================
 
+const PORT = process.env.PORT || 3000
 
-app.listen(3000,()=>{
-
-    console.log("Connect hub backend is running");
-    
-
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Connect hub backend is running on port ${PORT}`)
 })
