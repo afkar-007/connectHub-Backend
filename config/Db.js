@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 async function ConnectDb() {
 
     try{
-    mongoose.connect("mongodb://localhost:27017/connectHub")
+    mongoose.connect(process.env.MONGO_URI)
 
     console.log("Mongo db Connected Successfully")
 
