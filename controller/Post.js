@@ -6,7 +6,7 @@ const Post = async(req,res)=>{
         const {caption,postId}=req.body
 
         const newPost = await Posts.create({
-            image:req.file.filename,
+            image:req.file.path,
             caption:caption,
             postId:postId
         })

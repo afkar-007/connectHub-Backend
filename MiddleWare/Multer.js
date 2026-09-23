@@ -1,20 +1,18 @@
 const multer = require("multer")
+const {cloudinaryStorage, CloudinaryStorage}=require("multer-storage-cloudinary")
+const cloudinary = require("../config/cloudinary")
 
-const storage = multer.diskStorage({
-
-    destination:(req,file,cb)=>{
-        cb(null,"uploads/")
-    },
-    filename:(req,file,cb)=>{
-        cb(null,Date.now()+"-"+file.originalname)
+const storage = new CloudinaryStorage({
+    cloudinary:cloudinary,
+    params:{
+        folder:"connectHub",
+        allowed_formats: ["jpg", "jpeg", "png", "webp"]
     }
-
-
-
-
-
+})
+const upload = multer({
+    storage:storage
 })
 
-const upload = multer({storage:storage})
+
 
 module.exports=upload
