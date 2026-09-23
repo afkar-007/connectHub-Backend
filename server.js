@@ -13,8 +13,7 @@ const ConnectDb = require("./config/Db")
 // ================= CORS =================
 
 app.use(cors({
-    origin:[ "http://localhost:5173",
-    "https://connect-hub-sage.vercel.app"]
+    origin: "http://localhost:5173"
 }))
 
 
