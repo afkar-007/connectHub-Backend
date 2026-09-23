@@ -9,7 +9,15 @@ const app = express()
 const ConnectDb = require("./config/Db")
 
 
-app.use(cors())
+app.use(cors(
+    {
+        origin:[
+            "http://localhost:5173"
+        ]
+    }
+
+
+))
 app.use(express.json())
 
 ConnectDb()
